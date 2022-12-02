@@ -1,0 +1,40 @@
+<h1 *ngIf="!authService.isLogged">
+  Tu n'es pas connecté
+</h1>
+<h1 *ngIf="authService.isLogged">
+   Tu es connecté
+</h1>
+
+<mat-card *ngIf="!authService.isLogged">
+    <mat-card-content>
+      <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+        <h2>Log In</h2>
+        <mat-error *ngIf="error !== undefined">
+          The email and password were not recognized
+          {{ error }}
+        </mat-error>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Email" formControlName="email" name="email" required>
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password" name="password" required>
+          <mat-error>
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!loginFormGroup.valid">Login</button>
+      </form>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="authService.isLogged">
+  <mat-card-content>
+    <form (ngSubmit)="onLogout()">
+      <h2>Logout</h2>
+      <button mat-raised-button color="primary">logout</button>
+    </form>
+  </mat-card-content>
+</mat-card>
