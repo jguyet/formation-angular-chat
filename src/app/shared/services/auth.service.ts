@@ -3,15 +3,11 @@ import { Injectable } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { catchError, from, map, mergeMap, Observable, of, Subject } from 'rxjs';
 import { environement } from 'src/environements/environement';
+import { User } from '../models/user';
 
 export interface LoginResponse {
   error?: string;
   success: boolean;
-}
-
-export interface User {
-  id: string;
-  email: string;
 }
 
 @Injectable({
@@ -50,6 +46,7 @@ export class AuthService {
           clientId: account.clientId,
           clientSecret: account.clientSecret
         })).pipe(map(x => {
+
             return { success: this.oauthService.hasValidAccessToken() } as LoginResponse
         }));
       })

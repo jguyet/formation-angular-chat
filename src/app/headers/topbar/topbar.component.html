@@ -1,0 +1,21 @@
+<mat-toolbar>
+    
+    <!-- Nom du site web -->
+    <span>Teams</span>
+
+    <span class="example-spacer"></span>
+
+    <!-- Icones sur la droite du menu -->
+
+    <button *ngIf="authService.isLogged && my?.email != undefined" mat-button class="example-logged">
+        <span>{{ my?.email }}</span>
+        <mat-icon *ngIf="my?.picture == undefined">account_circle</mat-icon>
+        <mat-icon *ngIf="my?.picture != undefined"><img [src]="my?.picture" width="18" height="18" /></mat-icon>
+    </button>
+    <button *ngIf="!authService.isLogged" mat-button color="primary" class="example-icon" aria-label="Example icon-button with heart icon">
+        Login
+    </button>
+    <a *ngIf="authService.isLogged" [routerLink]="['/login']" mat-button color="primary" class="example-icon" aria-label="Example icon-button with heart icon">
+        Logout
+    </a>
+</mat-toolbar>

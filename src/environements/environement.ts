@@ -1,10 +1,10 @@
 
 export const environement = {
     production: false,
-    formationApi: "http://localhost:8080",
+    formationApi: "https://formationangular.eu-gb.mybluemix.net",
     oauth2: {
         scope: 'profile email',
         requireHttps: false,
-        tokenEndpoint: `http://localhost:8080/token`
+        tokenEndpoint: `https://formationangular.eu-gb.mybluemix.net/token`
     }
 };

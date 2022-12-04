@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable, Observer, Subject } from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WebsocketService {
   
   private ws: WebSocket | undefined = undefined;
@@ -12,9 +14,10 @@ export class WebsocketService {
   }
 
   public subscribe(url: string, channels: Array<string>): Subject<Object> {
-    if (this.ws == undefined || this.ws?.readyState !== WebSocket.OPEN) {
-      this.ws = new WebSocket(url);
+    if (this.ws != undefined && this.ws?.readyState === WebSocket.OPEN) {
+      this.ws.close();
     }
+    this.ws = new WebSocket(url);
     this.ws.onmessage = (x) => { this.subject.next(JSON.parse(x.data)); };;
     this.ws.onerror = (x) => { this.subject.error(x); };
     this.ws.onclose = () => { this.subject.complete(); };

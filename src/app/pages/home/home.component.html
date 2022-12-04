@@ -1,1 +1,60 @@
-<p>home works!</p>
+<mat-sidenav-container>
+    <mat-sidenav class="mat-sidenav-channels" position="start" mode="side" opened>
+       
+        <!-- Haut des channels -->
+        <mat-toolbar>
+            <span>Chat</span>
+            <span class="example-spacer"></span>
+        
+            <button mat-icon-button color="primary" class="example-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>create</mat-icon>
+            </button>
+        </mat-toolbar>
+
+        <!-- List des channels -->
+        <div>
+            <mat-list>
+                <mat-list-item *ngFor="let channel of (channels$ | async)" (click)="selectChannel(channel.title)">
+                    <img matListItemAvatar src="https://i.pinimg.com/736x/64/4a/53/644a53d6b976312241b3db1fe3ca1ae7.jpg" alt="...">
+                    <h3 matListItemTitle>{{ channel.title }}</h3>
+                    <p matListItemLine>
+                      <span *ngIf="channel.messages.length > 0">{{ channel.messages[channel.messages.length - 1].message.substring(0, 25) }}</span>
+                    </p>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div *ngIf="(currentChannel$ | async) as channel" class="page-content">
+            
+            <!-- Haut du chat -->
+            <mat-toolbar style="z-index: 2;">
+                <button mat-icon-button color="primary" class="example-icon" aria-label="Example icon-button with heart icon">
+                    <mat-icon><img src="https://i.pinimg.com/736x/64/4a/53/644a53d6b976312241b3db1fe3ca1ae7.jpg" /></mat-icon>
+                </button>
+                <span>{{ channel.title }}</span>
+                <span class="example-spacer"></span>
+            </mat-toolbar>
+            
+            <!-- Chat -->
+            <div class="messages" #scrollMe class="content-messages" [scrollTop]="scrollMe.scrollHeight">
+                <ul class="list-messages">
+                    <li *ngFor="let message of channel.messages" style="padding: 5px;">
+                        <mat-card *ngIf="((message.userId | getUser) | async) as user">
+                            <mat-card-content>
+                                <img [src]="user.picture" width="24px" height="24px" />
+                                {{ user.email }}: {{ message.message }}
+                            </mat-card-content>
+                        </mat-card>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Input Zone -->
+            <div class="input-section">
+                <input class="input-new-message" [(ngModel)]="messageField" type="text" placeholder="Entrer un nouveau message" />
+                <button class="button-new-message" (click)="onSendMessage(channel.title, messageField)" mat-flat-button color="primary">Envoyer</button>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

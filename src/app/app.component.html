@@ -1,1 +1,24 @@
-<router-outlet></router-outlet>
+
+<!-- Barre menu -->
+<app-topbar></app-topbar>
+
+<!-- Contenue -->
+<mat-sidenav-container *ngIf="authService.isLogged else loginPageContainer">
+
+  <!-- Barre gauche -->
+  <mat-sidenav mode="side" opened>
+      <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Contenue -->
+  <mat-sidenav-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Cas d'affichage si l'utilisateur est deconnecté -->
+<ng-template #loginPageContainer>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,11 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.example-logged {
+    background-color: #00000026;
+}
+
+mat-toolbar {
+    background-color: rgb(176, 176, 176);
+}

@@ -12,9 +12,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { Subscription } from 'rxjs';
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     MatCardModule,
     MatIconModule,
@@ -56,8 +58,8 @@ export class LoginComponent implements OnDestroy {
       this.loginFormGroup.controls['password'].value
     ).subscribe((response) => {
       if (response.success) {
-        // this.router.navigate(["/"]);
-        console.log('SUCCESSSSS');
+        this.router.navigate(["/"]);
+        // console.log('SUCCESSSSS');
       } else {
         this.error = response.error;
       }
