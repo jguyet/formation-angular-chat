@@ -40,6 +40,8 @@
             <div class="messages" #scrollMe class="content-messages" [scrollTop]="scrollMe.scrollHeight">
                 <ul class="list-messages">
                     <li *ngFor="let message of channel.messages" style="padding: 5px;">
+                        
+                        <!-- Un message (Créer un composant dédié serais top) -->
                         <mat-card *ngIf="((message.userId | getUser) | async) as user">
                             <mat-card-content>
                                 <img [src]="user.picture" width="24px" height="24px" />

@@ -44,11 +44,11 @@ export class HomeComponent {
   public currentChannel$: Observable<Channel>;
   public messageField: string = ''; // Input
 
-  private select: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Declencheur
+  private select$: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Declencheur
 
   constructor(public authService: AuthService, public websocketService: WebsocketService, public apiService: ApiService) {
     this.channels$ = this.apiService.getChannels();
-    this.currentChannel$ = this.select.pipe(
+    this.currentChannel$ = this.select$.pipe(
       filter(x => x !== ''),
       mergeMap((title) => {
         return combineLatest([
@@ -77,7 +77,7 @@ export class HomeComponent {
 
   selectChannel(title: string) {
     console.log(title);
-    this.select.next(title);
+    this.select$.next(title);
   }
 
   onSendMessage(title: string, message: string) {
