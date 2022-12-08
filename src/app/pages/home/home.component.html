@@ -14,11 +14,11 @@
         <!-- List des channels -->
         <div>
             <mat-list>
-                <mat-list-item *ngFor="let channel of (channels$ | async)" (click)="selectChannel(channel.title)">
-                    <img matListItemAvatar src="https://i.pinimg.com/736x/64/4a/53/644a53d6b976312241b3db1fe3ca1ae7.jpg" alt="...">
+                <mat-list-item *ngFor="let channel of (channels$ | async)" [ngClass]="{ 'selected-channel': selectedChannelTitle == channel.title }" (click)="selectChannel(channel.title)">
+                    <img matListItemAvatar [src]="channel.picture" alt="...">
                     <h3 matListItemTitle>{{ channel.title }}</h3>
                     <p matListItemLine>
-                      <span *ngIf="channel.messages.length > 0">{{ channel.messages[channel.messages.length - 1].message.substring(0, 25) }}</span>
+                      <span *ngIf="channel.messages.length > 0">{{ channel.messages[0].message.substring(0, 25) }}</span>
                     </p>
                 </mat-list-item>
             </mat-list>
@@ -30,22 +30,22 @@
             <!-- Haut du chat -->
             <mat-toolbar style="z-index: 2;">
                 <button mat-icon-button color="primary" class="example-icon" aria-label="Example icon-button with heart icon">
-                    <mat-icon><img src="https://i.pinimg.com/736x/64/4a/53/644a53d6b976312241b3db1fe3ca1ae7.jpg" /></mat-icon>
+                    <mat-icon><img [src]="channel.picture" alt="..." /></mat-icon>
                 </button>
                 <span>{{ channel.title }}</span>
                 <span class="example-spacer"></span>
             </mat-toolbar>
             
             <!-- Chat -->
-            <div class="messages" #scrollMe class="content-messages" [scrollTop]="scrollMe.scrollHeight">
+            <div class="content-messages" #messageContainer>
                 <ul class="list-messages">
-                    <li *ngFor="let message of channel.messages" style="padding: 5px;">
+                    <li *ngFor="let message of channel.messages" [ngClass]="{ 'new-message': message.recent}" style="padding: 5px;">
                         
                         <!-- Un message (Créer un composant dédié serais top) -->
-                        <mat-card *ngIf="((message.userId | getUser) | async) as user">
+                        <mat-card>
                             <mat-card-content>
-                                <img [src]="user.picture" width="24px" height="24px" />
-                                {{ user.email }}: {{ message.message }}
+                                <img [src]="message.picture" width="24px" height="24px" />
+                                {{ message.email }}: {{ message.message }}
                             </mat-card-content>
                         </mat-card>
                     </li>
@@ -54,8 +54,8 @@
 
             <!-- Input Zone -->
             <div class="input-section">
-                <input class="input-new-message" [(ngModel)]="messageField" type="text" placeholder="Entrer un nouveau message" />
-                <button class="button-new-message" (click)="onSendMessage(channel.title, messageField)" mat-flat-button color="primary">Envoyer</button>
+                <input class="input-new-message" [(ngModel)]="messageField" type="text" (keydown)="$event.key == 'Enter' ? onSendMessage(channel.title, messageField) : ''" placeholder="Entrer un nouveau message" />
+                <button #buttonSend class="button-new-message" (click)="onSendMessage(channel.title, messageField)" mat-flat-button color="primary">Envoyer</button>
             </div>
         </div>
     </mat-sidenav-content>

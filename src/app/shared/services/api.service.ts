@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environement } from 'src/environements/environement';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
@@ -9,6 +9,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class ApiService {
+
+  public users = new BehaviorSubject<User[]>([]);
 
   constructor(public httpClient: HttpClient) { }
 

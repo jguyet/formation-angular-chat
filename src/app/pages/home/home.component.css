@@ -21,6 +21,16 @@ mat-sidenav-container {
     flex: 1 1 auto;
 }
 
+mat-list-item:hover {
+    background: #c5c5c5 !important;
+    cursor: pointer;
+}
+
+.selected-channel {
+    background: #c5c5c5 !important;
+    cursor: pointer;
+}
+
 /* MESSAGES */
 
 .content-messages {
@@ -39,6 +49,14 @@ mat-sidenav-container {
     margin-block-start: 0px;
     margin-block-end: 0px;
 }
+
+.new-message {
+    -webkit-animation: 2s new_message;
+    animation: 2s new_message;
+}
+
+@-webkit-keyframes new_message { from { background-color: yellow; } to { background-color: transparent; }  }
+@keyframes new_message { from { background-color: yellow; } to { background-color: transparent; }  }
 
 /* INPUT MESSAGE */
 

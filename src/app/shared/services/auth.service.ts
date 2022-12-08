@@ -33,9 +33,6 @@ export class AuthService {
         password: password
     }).pipe(
       catchError((response: any) => {
-        if (response?.status == 406) {
-          return of(false);
-        }
         return of(false);
       }),
       mergeMap((account) => {
