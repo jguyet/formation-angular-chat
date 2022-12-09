@@ -9,6 +9,7 @@ mat-sidenav {
     /* border-right: 2px solid black; */
     -webkit-box-shadow: 4px 5px 15px 2px #0000001f;
     box-shadow: 4px 5px 15px 2px #0000001f;
+    text-align: center;
 }
 
 mat-sidenav-content {
@@ -20,6 +21,15 @@ mat-sidenav-content {
 mat-list-item {
     padding-left: 12px;
     padding-right: 0px;
+}
+
+/* CHANNEL LIST */
+
+.channel-picture {
+    width: 38px;
+    height: 38px;
+    border-radius: 30px;
+    margin-top: 5px;
 }
 
 /* CONTENT */

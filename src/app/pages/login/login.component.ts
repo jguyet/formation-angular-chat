@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { myOf } from 'src/app/shared/libs/my-of';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -14,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   imports: [
+    CommonModule,
     RouterModule,
     SharedModule,
     MatInputModule,
@@ -25,7 +27,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 export class LoginComponent {
 
   public loginFormGroup: FormGroup;
-  public error?: string;
+  public error$ = new Subject<string | undefined>();
 
   constructor(
     public fb: FormBuilder,
@@ -42,7 +44,7 @@ export class LoginComponent {
     if (this.loginFormGroup.invalid) {
       return ;
     }
-    this.error = undefined;
+    this.error$.next(undefined);
     this.loginService.login(
       this.loginFormGroup.controls['email'].value,
       this.loginFormGroup.controls['password'].value
@@ -51,7 +53,7 @@ export class LoginComponent {
         // redirection vers home
         this.router.navigate(['/']);
       } else {
-        this.error = response.error;
+        this.error$.next(response.error);
       }
     });
   }

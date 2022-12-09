@@ -12,7 +12,7 @@ export interface LoginResponse { error?: string; success: boolean; }
 export class LoginService {
 
   get isLogged() {
-    return true;
+    return this.oauthService.hasValidAccessToken();
   }
 
   constructor(

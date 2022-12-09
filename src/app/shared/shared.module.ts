@@ -5,6 +5,8 @@ import { CardService } from './services/card.service';
 import { LoginService } from './services/login.service';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { environement } from 'src/environement/environement';
+import { WebsocketService } from './services/web-socket.service';
+import { ChatService } from './services/chat.service';
 
 
 
@@ -22,7 +24,9 @@ import { environement } from 'src/environement/environement';
   ],
   providers: [
     CardService,
-    LoginService
+    LoginService,
+    WebsocketService,
+    ChatService
   ]
 })
 export class SharedModule { }

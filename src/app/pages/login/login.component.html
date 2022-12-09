@@ -4,4 +4,4 @@
     <button mat-flat-button color="primary" type="submit" [disabled]="loginFormGroup.invalid" >Login</button>
 </form>
 
-<p *ngIf="error">{{ error }}</p>
+<p *ngIf="(error$ | async) as e">{{ e }}</p>

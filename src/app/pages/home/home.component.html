@@ -1,28 +1,26 @@
 <mat-sidenav-container>
     <mat-sidenav position="start" mode="side" opened disableClose>
         <!-- Side bar -->
-        <mat-list>
-            <mat-list-item>
-                Channel 1
-            </mat-list-item>
-        </mat-list>
+        <a mat-mini-fab color="primary" *ngFor="let channel of (channels$ | async)" (click)="selectChannel(channel.title)">
+            <img class="channel-picture" [src]="channel.picture" [matTooltip]="channel.title" matTooltipPosition="right" />
+        </a>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content *ngIf="(currentChannel$ | async ) as currentChannel">
         <!-- Contenu -->
         <div>
             <!-- liste de messages -->
             <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection">
-                <mat-chip-row *ngFor="let chip of availableColors" selected [style.marginLeft]="chip.my ? '50%': 'none'">
-                  <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
-                  {{ chip.message }}
+                <mat-chip-row *ngFor="let message of currentChannel.messages" selected [style.marginLeft]="false ? '50%': 'none'">
+                  <img matChipAvatar [src]="message.picture"/>
+                  {{ message.message }}
                 </mat-chip-row>
             </mat-chip-listbox>
         </div>
         <div class="input-zone">
             <mat-form-field class="input-send no-bottom">
-                <input matInput placeholder="Nouveau message." />
+                <input matInput placeholder="Nouveau message." [(ngModel)]="text" />
             </mat-form-field>
-            <button class="button-send" mat-flat-button extended color="primary">
+            <button (click)="addMessageToOneChannel(currentChannel.title, text)" class="button-send" mat-flat-button extended color="primary">
                 <mat-icon>send</mat-icon>
                 Envoyer
             </button>
