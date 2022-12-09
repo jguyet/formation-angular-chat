@@ -1,0 +1,16 @@
+mat-sidenav-container {
+    height: calc(100vh - 65px);
+    width: 100vw;
+}
+
+mat-sidenav {
+    width: 50px;
+    height: 100%;
+    -webkit-box-shadow: 4px 5px 15px 2px #0000001f;
+    box-shadow: 4px 5px 15px 2px #0000001f;
+}
+
+mat-sidenav-content {
+    width: 100%;
+    height: 100%;
+}

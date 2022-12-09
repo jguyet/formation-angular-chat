@@ -1,0 +1,7 @@
+<form [formGroup]="loginFormGroup" (submit)="submit();">
+    <input formControlName="email" type="email" placeholder="test@gmail.com" matInput />
+    <input formControlName="password" type="password" matInput />
+    <button mat-flat-button color="primary" type="submit" [disabled]="loginFormGroup.invalid" >Login</button>
+</form>
+
+<p *ngIf="error">{{ error }}</p>

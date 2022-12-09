@@ -1,0 +1,16 @@
+mat-list {
+    text-align: center;
+}
+
+mat-list-item {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.mat-mdc-mini-fab {
+    overflow: initial;
+}
+
+a {
+    margin: 3px;
+}

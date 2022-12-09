@@ -1,0 +1,15 @@
+
+<div *ngIf="(card$ | async) as card; else empty">
+    {{ card | json }}
+</div>
+
+<button (click)="reload()">Random</button>
+
+
+
+<ng-template #empty>
+    <div>
+        Service indisponible.<br>
+        Veuillez réssayé ulterieurement.
+    </div>
+</ng-template>
